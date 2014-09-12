@@ -15,7 +15,7 @@ public class GameTest {
 		//Arrange
 		//Game g = new Game();
 		//Act
-		String actual = g.getScoreBoard();
+		String actual = g.getGameStatus();
 		
 		//Assert
 		assertEquals("name1 Love - name2 Love", actual);
@@ -27,13 +27,13 @@ public class GameTest {
 		//Game g = new Game();
 		//Act
 		g.incrementPlayerScore(1);
-		String actual = g.getScoreBoard();
+		String actual = g.getGameStatus();
 		
 		
 		//Assert
 		assertEquals("name1 Fifteen - name2 Love", actual);
 		g.incrementPlayerScore(2);
-		actual = g.getScoreBoard();
+		actual = g.getGameStatus();
 		assertEquals("name1 Fifteen - name2 Fifteen", actual);
 				
 	}
@@ -55,7 +55,7 @@ public class GameTest {
 		g.incrementPlayerScore(2);
 		
 		//Assert 
-		assertEquals("Deuce",g.getScoreBoard());
+		assertEquals("Deuce",g.getGameStatus());
 		
 	}
 	
@@ -74,7 +74,7 @@ public class GameTest {
 		g.incrementPlayerScore(2);
 		g.incrementPlayerScore(2);
 		//Assert
-		assertEquals("Advantage name2",g.getScoreBoard());
+		assertEquals("Advantage name2",g.getGameStatus());
 	}
 	
 	@Test
@@ -89,7 +89,7 @@ public class GameTest {
 		g.incrementPlayerScore(1);
 		
 		//Assert
-		assertEquals("Advantage name1",g.getScoreBoard());
+		assertEquals("Advantage name1",g.getGameStatus());
 	}
 		
 }

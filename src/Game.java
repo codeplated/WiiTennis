@@ -2,13 +2,15 @@ public class Game {
 	private static final int ONE_POINT = 1;
 	private static final int FORTY = 3;
 	private Player p1, p2;
+	private String gameStatus;
 
 	public Game() {
 		p1 = new Player("name1");
 		p2 = new Player("name2");
+		setGameStatus();
 	}
 
-	public String getScoreBoard() {
+	public void setGameStatus() {
 		String result = "";
 		
 		if (isNotAnAdvantageGame()) 
@@ -17,9 +19,13 @@ public class Game {
 		else if (isAdvantage(p2, p1)) result = "Advantage " + p2.getName();
 		else if (isAdvantage(p1, p2)) result = "Advantage " + p1.getName();
 
-		return result;
+		this.gameStatus = result;
 			
 	
+	}
+	
+	public String getGameStatus(){
+		return this.gameStatus;
 	}
 
 	private boolean isNotAnAdvantageGame() {
@@ -44,6 +50,7 @@ public class Game {
 		} else if (index == 2) {
 			p2.incrementScore();
 		}
+		setGameStatus();
 	}
 
 }
