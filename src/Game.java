@@ -1,4 +1,6 @@
 public class Game {
+	private static final int ONE_POINT = 1;
+	private static final int FORTY = 3;
 	private Player p1, p2;
 
 	public Game() {
@@ -9,7 +11,7 @@ public class Game {
 	public String getScoreBoard() {
 		String result = "";
 		
-		if (p1.getSimpleScore() < 3 && p2.getSimpleScore() < 3) 
+		if (isNotAnAdvantageGame()) 
 			result  = p1.getName() + " " + p1.getScore().toString() + " - " + p2.getName() + " " + p2.getScore().toString();
 		else if (isDeuce()) result =  "Deuce";
 		else if (isAdvantage(p2, p1)) result = "Advantage " + p2.getName();
@@ -20,16 +22,20 @@ public class Game {
 	
 	}
 
+	private boolean isNotAnAdvantageGame() {
+		return p1.getSimpleScore() < FORTY && p2.getSimpleScore() < FORTY;
+	}
+
 	private boolean isAdvantage(Player first, Player second) {
 		int firstScore = first.getSimpleScore();
 		int secondScore = second.getSimpleScore();
 
-		return (firstScore - secondScore == 1 && secondScore >= 3);
+		return (firstScore - secondScore == ONE_POINT && secondScore >= FORTY);
 	}
 
 	private boolean isDeuce() {
 		return p1.getSimpleScore() == p2.getSimpleScore()
-				&& p1.getSimpleScore() >= 3;
+				&& p1.getSimpleScore() >= FORTY;
 	}
 
 	public void incrementPlayerScore(int index) {
