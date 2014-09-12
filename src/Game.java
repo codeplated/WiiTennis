@@ -1,4 +1,6 @@
 public class Game {
+	private static final String ADVANTAGE = "Advantage";
+	private static final String DEUCE = "Deuce";
 	private static final int ONE_POINT = 1;
 	private static final int FORTY = 3;
 	private Player p1, p2;
@@ -15,9 +17,9 @@ public class Game {
 		
 		if (isNotAnAdvantageGame()) 
 			result  = p1.getName() + " " + p1.getScore() + " - " + p2.getName() + " " + p2.getScore();
-		else if (isDeuce()) result =  "Deuce";
-		else if (isAdvantage(p2, p1)) result = "Advantage " + p2.getName();
-		else if (isAdvantage(p1, p2)) result = "Advantage " + p1.getName();
+		else if (isDeuce()) result =  DEUCE;
+		else if (isAdvantage(p2, p1)) result = ADVANTAGE + " " + p2.getName();
+		else if (isAdvantage(p1, p2)) result = ADVANTAGE + " " + p1.getName();
 
 		this.gameStatus = result;
 			
