@@ -3,6 +3,5 @@ public enum Score {
 	Love, 	
 	Fifteen,
 	Thirty,
-	Forty,
-	Deuce
+	Forty
 }

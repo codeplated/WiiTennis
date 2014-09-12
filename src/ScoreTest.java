@@ -10,9 +10,9 @@ public class ScoreTest {
 		//Arrange
 		Player p = new Player("Davide");
 		//Act
-		Score playerScore = p.getScore();
+		String playerScore = p.getScore();
 		//Assert
-		assertEquals(Score.Love, playerScore);
+		assertEquals(Score.Love.toString(), playerScore);
 	
 	}
 

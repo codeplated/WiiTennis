@@ -1,20 +1,24 @@
 
 public class Player {
-	private Score score;
+	private String score;
 	private String name;
-
+	private int simpleScore;
+	public int getSimpleScore() {
+		return simpleScore;
+	}
+	public void setSimpleScore(int simpleScore) {
+		this.simpleScore = simpleScore;
+	}
 	public Player(String name) {
 
-		this.setScore(Score.values()[0]);
+		this.setSimpleScore(0);;
 		this.name = name;
 	}
-	public Score getScore() {
-		return score;
+	public String getScore() {
+		return Score.values()[this.getSimpleScore()].toString();
 	}
 
-	public void setScore(Score love) {
-		this.score = love;
-	}
+
 	public String getName() {
 		return name;
 	}
@@ -22,26 +26,10 @@ public class Player {
 		this.name = name;
 	}
 	public void incrementScore() {
-		Score scorenow[] = Score.values();
-		Score current = getScore();
-		switch(current) {
-		case Love:
-			this.setScore(Score.Fifteen);
-			break;
-			
-		case Fifteen:
-			this.setScore(Score.Thirty);
-			break;
-			
-		case Thirty:
-			this.setScore(Score.Forty);
-			break;
-		case Forty:
-			this.setScore(Score.Deuce);
-			break;
-		}
+		this.simpleScore++;
 	}
 	
+
 	
 	
 	
