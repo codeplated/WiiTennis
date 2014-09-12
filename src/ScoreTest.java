@@ -12,8 +12,14 @@ public class ScoreTest {
 		//Act
 		String playerScore = p.getScore();
 		//Assert
-		assertEquals(Score.Love.toString(), playerScore);
+		assertEquals("Love", playerScore);
 	
 	}
 
+	@Test
+	public void twoScoreWithSameSimpleScoreAreConsideredEqual(){
+		Score oneScore = new Score(1);
+		Score anotherOneScore = new Score(1);
+		assertTrue(oneScore.equals(anotherOneScore));
+	}
 }

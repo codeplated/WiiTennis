@@ -12,7 +12,7 @@ public class Game {
 		String result = "";
 		
 		if (isNotAnAdvantageGame()) 
-			result  = p1.getName() + " " + p1.getScore().toString() + " - " + p2.getName() + " " + p2.getScore().toString();
+			result  = p1.getName() + " " + p1.getScore() + " - " + p2.getName() + " " + p2.getScore();
 		else if (isDeuce()) result =  "Deuce";
 		else if (isAdvantage(p2, p1)) result = "Advantage " + p2.getName();
 		else if (isAdvantage(p1, p2)) result = "Advantage " + p1.getName();

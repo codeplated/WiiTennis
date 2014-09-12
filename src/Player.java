@@ -1,21 +1,21 @@
 
 public class Player {
-	private String score;
+	
 	private String name;
-	private int simpleScore;
+
+	private Score score; 
 	public int getSimpleScore() {
-		return simpleScore;
+		return score.getSimpleScore();
 	}
 	public void setSimpleScore(int simpleScore) {
-		this.simpleScore = simpleScore;
+		this.score.setSimpleScore(simpleScore);
 	}
 	public Player(String name) {
-
-		this.setSimpleScore(0);;
+		this.score = new Score(0);
 		this.name = name;
 	}
 	public String getScore() {
-		return Score.values()[this.getSimpleScore()].toString();
+		return this.score.getScore();
 	}
 
 
@@ -26,7 +26,7 @@ public class Player {
 		this.name = name;
 	}
 	public void incrementScore() {
-		this.simpleScore++;
+		this.score.setSimpleScore(this.score.getSimpleScore() + 1);
 	}
 	
 
