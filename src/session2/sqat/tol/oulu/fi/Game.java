@@ -5,6 +5,8 @@ public class Game {
 	private static final String DEUCE = "Deuce";
 	private static final int ONE_POINT = 1;
 	private static final Score FORTY = new Score(3);
+	private static final String SPACE = " ";
+	private static final String DASH = "-";
 	private Player p1, p2;
 	private String gameStatus;
 
@@ -15,14 +17,17 @@ public class Game {
 	}
 
 	public void setGameStatus() {
-		String result = "";
-		if (isNotAnAdvantageGame()) 
-			result  = p1.getName() + " " + p1.getScore() + " - " + p2.getName() + " " + p2.getScore();
-		else if (isDeuce()) result =  DEUCE;
-		else if (isAdvantage(p2, p1)) result = ADVANTAGE + " " + p2.getName();
-		else if (isAdvantage(p1, p2)) result = ADVANTAGE + " " + p1.getName();
+		StringBuilder result = new StringBuilder();
+		if (isNotAnAdvantageGame()) {
+			result.append(p1.getName()).append(SPACE).append(p1.getScore());
+			result.append(SPACE).append(DASH).append(SPACE);
+			result.append(p2.getName()).append(SPACE).append(p2.getScore());
+		}
+		else if (isDeuce()) result.append(DEUCE);
+		else if (isAdvantage(p2, p1)) result.append(ADVANTAGE).append(SPACE).append(p2.getName());
+		else if (isAdvantage(p1, p2)) result.append(ADVANTAGE).append(SPACE).append(p1.getName());
 
-		this.gameStatus = result;
+		this.gameStatus = result.toString();
 	}
 	
 	public String getGameStatus(){

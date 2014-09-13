@@ -6,12 +6,7 @@ public class Player {
 	private String name;
 	private Score score; 
 	
-//	public int getSimpleScore() {
-//		return score.getSimpleScore();
-//	}
-//	public void setSimpleScore(int simpleScore) {
-//		this.score.setSimpleScore(simpleScore);
-//	}
+
 	public Player(String name) {
 		this.score = new Score();
 		this.name = name;
@@ -52,12 +47,5 @@ public class Player {
 		} else if (!name.equals(other.name))
 			return false;
 		return true;
-	}
-	
-
-	
-	
-	
-	
-	
+	}	
 }
