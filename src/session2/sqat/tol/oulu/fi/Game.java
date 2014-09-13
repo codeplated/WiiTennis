@@ -31,23 +31,23 @@ public class Game {
 		else if (isDeuce()) result.append(DEUCE);
 		else if (isAdvantage(p2, p1)) result.append(ADVANTAGE).append(SPACE).append(p2.getName());
 		else if (isAdvantage(p1, p2)) result.append(ADVANTAGE).append(SPACE).append(p1.getName());
-		else if (isThereAwinner()) result.append(winner.getName()).append(SPACE).append(WINS);
+		else if (theWinner()!=null) result.append(theWinner().getName()).append(SPACE).append(WINS);
 	
 		
 		this.gameStatus = result.toString();
 	}
 	
-	private boolean isThereAwinner() {
-		boolean doWeHaveAwinner =  false;
+	private Player theWinner() {
+		Player theWinner = null;
 		if (this.p1.getScore().compareTo(FORTY)>0 && this.p1.getScore().compareTo(this.p2.getScore())>=TWO_POINTS){
-			this.winner = p1;
-			doWeHaveAwinner = true;
+			theWinner = p1;
+			
 		} else if(this.p2.getScore().compareTo(FORTY)>0 && this.p2.getScore().compareTo(this.p1.getScore())>=TWO_POINTS) {
-			this.winner = p2;
-			doWeHaveAwinner = true;
+			theWinner = p2;
+
 		}
 
-		return doWeHaveAwinner;
+		return theWinner;
 	}
 
 	public String getGameStatus(){
