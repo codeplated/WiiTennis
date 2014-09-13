@@ -1,8 +1,10 @@
+package session2.sqat.tol.oulu.fi;
+
 public class Game {
 	private static final String ADVANTAGE = "Advantage";
 	private static final String DEUCE = "Deuce";
 	private static final int ONE_POINT = 1;
-	private static final int FORTY = 3;
+	private static final Score FORTY = new Score(3);
 	private Player p1, p2;
 	private String gameStatus;
 
@@ -14,7 +16,6 @@ public class Game {
 
 	public void setGameStatus() {
 		String result = "";
-		
 		if (isNotAnAdvantageGame()) 
 			result  = p1.getName() + " " + p1.getScore() + " - " + p2.getName() + " " + p2.getScore();
 		else if (isDeuce()) result =  DEUCE;
@@ -22,8 +23,6 @@ public class Game {
 		else if (isAdvantage(p1, p2)) result = ADVANTAGE + " " + p1.getName();
 
 		this.gameStatus = result;
-			
-	
 	}
 	
 	public String getGameStatus(){
@@ -31,25 +30,24 @@ public class Game {
 	}
 
 	private boolean isNotAnAdvantageGame() {
-		return p1.getSimpleScore() < FORTY && p2.getSimpleScore() < FORTY;
+		return p1.getScore().compareTo(FORTY)<0 && p2.getScore().compareTo(FORTY)<0;
 	}
 
 	private boolean isAdvantage(Player first, Player second) {
-		int firstScore = first.getSimpleScore();
-		int secondScore = second.getSimpleScore();
-
-		return (firstScore - secondScore == ONE_POINT && secondScore >= FORTY);
+		Score firstScore = first.getScore();
+		Score secondScore = second.getScore();
+		return firstScore.compareTo(secondScore) == ONE_POINT && secondScore.compareTo(FORTY)>=0;
 	}
 
 	private boolean isDeuce() {
-		return p1.getSimpleScore() == p2.getSimpleScore()
-				&& p1.getSimpleScore() >= FORTY;
+		return p1.getScore().compareTo(p2.getScore())==0
+				&& p1.getScore().compareTo(FORTY)>=0;
 	}
 
-	public void incrementPlayerScore(int index) {
-		if (index == 1) {
+	public void incrementPlayerScore(Player player) {
+		if (player.equals(p1)) {
 			p1.incrementScore();
-		} else if (index == 2) {
+		} else if (player.equals(p2)) {
 			p2.incrementScore();
 		}
 		setGameStatus();
