@@ -31,22 +31,23 @@ public class Game {
 		else if (isDeuce()) result.append(DEUCE);
 		else if (isAdvantage(p2, p1)) result.append(ADVANTAGE).append(SPACE).append(p2.getName());
 		else if (isAdvantage(p1, p2)) result.append(ADVANTAGE).append(SPACE).append(p1.getName());
-		else if (isWinner(p1, p2)) result.append(winner.getName()).append(SPACE).append(WINS);
-		else if (isWinner(p2, p1)) result.append(winner.getName()).append(SPACE).append(WINS);
+		else if (isThereAwinner()) result.append(winner.getName()).append(SPACE).append(WINS);
+	
 		
 		this.gameStatus = result.toString();
 	}
 	
-	private boolean isWinner(Player p1, Player p2) {
-		if (p1.getScore().compareTo(FORTY)>0 && p1.getScore().compareTo(p2.getScore())>=TWO_POINTS){
+	private boolean isThereAwinner() {
+		boolean doWeHaveAwinner =  false;
+		if (this.p1.getScore().compareTo(FORTY)>0 && this.p1.getScore().compareTo(this.p2.getScore())>=TWO_POINTS){
 			this.winner = p1;
-			return true;
-		} else if(p2.getScore().compareTo(FORTY)>0 && p2.getScore().compareTo(p1.getScore())>=TWO_POINTS) {
+			doWeHaveAwinner = true;
+		} else if(this.p2.getScore().compareTo(FORTY)>0 && this.p2.getScore().compareTo(this.p1.getScore())>=TWO_POINTS) {
 			this.winner = p2;
-			return true;
+			doWeHaveAwinner = true;
 		}
 
-		return false;
+		return doWeHaveAwinner;
 	}
 
 	public String getGameStatus(){
