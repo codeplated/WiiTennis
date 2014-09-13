@@ -2,6 +2,7 @@ package session2.sqat.tol.oulu.fi.tests;
 import static org.junit.Assert.*;
 
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import session2.sqat.tol.oulu.fi.Game;
@@ -110,6 +111,22 @@ public class GameTest {
 		g.incrementPlayerScore(p2);
 		g.incrementPlayerScore(p2);
 		g.incrementPlayerScore(p2);
+		
+		assertEquals("name2 wins", g.getGameStatus());
+		
+	}
+	
+
+	@Test 
+	public void secondPlayerWinsAtThirty(){
+		g.incrementPlayerScore(p2);
+		g.incrementPlayerScore(p2);
+		g.incrementPlayerScore(p2);
+		g.incrementPlayerScore(p2);
+
+		g.incrementPlayerScore(p1);
+		g.incrementPlayerScore(p1);
+
 		
 		assertEquals("name2 wins", g.getGameStatus());
 		
