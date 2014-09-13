@@ -11,7 +11,6 @@ public class Game {
 	private static final int TWO_POINTS = 2;
 	private Player p1, p2;
 	private String gameStatus;
-	private Player winner;
 
 	public Game() {
 		p1 = new Player("name1");
@@ -29,8 +28,8 @@ public class Game {
 		
 
 		else if (isDeuce()) result.append(DEUCE);
-		else if (isAdvantage(p2, p1)) result.append(ADVANTAGE).append(SPACE).append(p2.getName());
-		else if (isAdvantage(p1, p2)) result.append(ADVANTAGE).append(SPACE).append(p1.getName());
+		//else if (isAdvantage(p2, p1)) result.append(ADVANTAGE).append(SPACE).append(p2.getName());
+		else if (advantagePlayer()!=null) result.append(ADVANTAGE).append(SPACE).append(advantagePlayer().getName());
 		else if (theWinner()!=null) result.append(theWinner().getName()).append(SPACE).append(WINS);
 	
 		
@@ -58,10 +57,13 @@ public class Game {
 		return p1.getScore().compareTo(FORTY)<0 && p2.getScore().compareTo(FORTY)<0;
 	}
 
-	private boolean isAdvantage(Player first, Player second) {
-		Score firstScore = first.getScore();
-		Score secondScore = second.getScore();
-		return secondScore.compareTo(FORTY)>=0 && firstScore.compareTo(FORTY)>=0 && firstScore.compareTo(secondScore) == ONE_POINT ;
+	private Player advantagePlayer() {
+		Score firstScore = p1.getScore();
+		Score secondScore = p2.getScore();
+		Player result = null;
+		if (secondScore.compareTo(FORTY)>=0 && firstScore.compareTo(FORTY)>=0 && firstScore.compareTo(secondScore) == ONE_POINT) result = p1;
+		else if (secondScore.compareTo(FORTY)>=0 && firstScore.compareTo(FORTY)>=0 && secondScore.compareTo(firstScore) == ONE_POINT) result = p2;
+		return result;
 	}
 
 	private boolean isDeuce() {
