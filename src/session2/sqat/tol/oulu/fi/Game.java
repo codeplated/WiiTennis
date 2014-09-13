@@ -1,5 +1,6 @@
 package session2.sqat.tol.oulu.fi;
 
+
 public class Game {
 	private static final String ADVANTAGE = "Advantage";
 	private static final String DEUCE = "Deuce";
@@ -13,24 +14,26 @@ public class Game {
 	public Game() {
 		p1 = new Player("name1");
 		p2 = new Player("name2");
-		setGameStatus();
+		updateGameStatus();
 	}
 
-	public void setGameStatus() {
+	public void updateGameStatus() {
 		StringBuilder result = new StringBuilder();
 		if (isNotAnAdvantageGame()) {
 			result.append(p1.getName()).append(SPACE).append(p1.getScore());
 			result.append(SPACE).append(DASH).append(SPACE);
 			result.append(p2.getName()).append(SPACE).append(p2.getScore());
 		}
-		
-
 		else if (isDeuce()) result.append(DEUCE);
 		else if (advantagePlayer()!=null) result.append(ADVANTAGE).append(SPACE).append(advantagePlayer().getName());
-		else if (theWinner()!=null) result.append(theWinner().getName()).append(SPACE).append(WINS);
+		else if (isThereAWinner()) result.append(theWinner().getName()).append(SPACE).append(WINS);
 	
 		
 		this.gameStatus = result.toString();
+	}
+
+	private boolean isThereAWinner() {
+		return theWinner()!=null;
 	}
 	
 	private Player theWinner() {
@@ -54,8 +57,10 @@ public class Game {
 
 	private Player advantagePlayer() {
 		Player result = null;
-		if (p2.hasAtLeastFortyPoints() && p1.hasAtLeastFortyPoints() && p1.hasOnePointAdvantageOn(p2)) result = p1;
-		else if (p2.hasAtLeastFortyPoints() && p1.hasAtLeastFortyPoints() && p2.hasOnePointAdvantageOn(p1)) result = p2;
+		if (p2.hasAtLeastFortyPoints() && p1.hasAtLeastFortyPoints()){
+			if(p1.hasOnePointAdvantageOn(p2))  result = p1;
+			else if (p2.hasOnePointAdvantageOn(p1)) result = p2;
+		}
 		return result;
 	}
 
@@ -66,13 +71,15 @@ public class Game {
 	}
 
 	
-	public void incrementPlayerScore(Player player) {
+	public void incrementPlayerScore(Player player) throws GameHasAlreadyBeWonException {
+		if(!isThereAWinner()) {
 		if (player.equals(p1)) {
 			p1.incrementScore();
 		} else if (player.equals(p2)) {
 			p2.incrementScore();
 		}
-		setGameStatus();
+		updateGameStatus();
+		} else throw new GameHasAlreadyBeWonException();
 	}
 
 }

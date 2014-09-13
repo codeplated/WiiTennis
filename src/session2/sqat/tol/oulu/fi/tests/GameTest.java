@@ -5,6 +5,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import session2.sqat.tol.oulu.fi.Game;
+import session2.sqat.tol.oulu.fi.GameHasAlreadyBeWonException;
 import session2.sqat.tol.oulu.fi.Player;
 
 
@@ -28,7 +29,7 @@ public class GameTest {
 		
 	}
 	@Test
-	public void gameIncrementTest() {
+	public void gameIncrementTest() throws GameHasAlreadyBeWonException {
 
 		//Act
 		g.incrementPlayerScore(p1);
@@ -44,7 +45,7 @@ public class GameTest {
 	}
 	
 	@Test
-	public void whenBothPlayersHaveThreePointsAndScoresAreEqualTheScoreIsLove()
+	public void whenBothPlayersHaveThreePointsAndScoresAreEqualTheScoreIsLove() throws GameHasAlreadyBeWonException
 	{
 	
 		//Act
@@ -62,7 +63,7 @@ public class GameTest {
 	}
 	
 	@Test
-		public void whenBothPlayersHaveScoredThreePointsandOnePlayerScoresAgain()
+		public void whenBothPlayersHaveScoredThreePointsandOnePlayerScoresAgain() throws GameHasAlreadyBeWonException
 	{
 		//Act
 		g.incrementPlayerScore(p1);
@@ -78,23 +79,20 @@ public class GameTest {
 	}
 	
 	@Test
-		public void whenBothPlayersHaveScoredThreePointsAndPlayerOneScoresAgain(){
+		public void whenBothPlayersHaveScoredThreePointsAndPlayerOneScoresAgain() throws GameHasAlreadyBeWonException{
 		g.incrementPlayerScore(p1);
-		g.incrementPlayerScore(p1);
-		g.incrementPlayerScore(p1);
-		g.incrementPlayerScore(p1);
-		
 		g.incrementPlayerScore(p2);
 		g.incrementPlayerScore(p2);
 		g.incrementPlayerScore(p2);
-		
-		
+		g.incrementPlayerScore(p1);
+		g.incrementPlayerScore(p1);
+		g.incrementPlayerScore(p1);
 		//Assert
 		assertEquals("Advantage name1",g.getGameStatus());
 	}
 	
 	@Test 
-	public void firstPlayerHasAnEasyWin(){
+	public void firstPlayerHasAnEasyWin() throws GameHasAlreadyBeWonException{
 		g.incrementPlayerScore(p1);
 		g.incrementPlayerScore(p1);
 		g.incrementPlayerScore(p1);
@@ -105,7 +103,7 @@ public class GameTest {
 	}
 	
 	@Test 
-	public void secondPlayerHasAnEasyWin(){
+	public void secondPlayerHasAnEasyWin() throws GameHasAlreadyBeWonException{
 		g.incrementPlayerScore(p2);
 		g.incrementPlayerScore(p2);
 		g.incrementPlayerScore(p2);
@@ -117,18 +115,26 @@ public class GameTest {
 	
 
 	@Test 
-	public void secondPlayerWinsAtThirty(){
+	public void secondPlayerWinsAtThirty() throws GameHasAlreadyBeWonException{
 		g.incrementPlayerScore(p2);
 		g.incrementPlayerScore(p2);
-		g.incrementPlayerScore(p2);
-		g.incrementPlayerScore(p2);
-
 		g.incrementPlayerScore(p1);
 		g.incrementPlayerScore(p1);
-
-		
+		g.incrementPlayerScore(p2);
+		g.incrementPlayerScore(p2);
 		assertEquals("name2 wins", g.getGameStatus());
 		
+	}
+	
+	@Test(expected=GameHasAlreadyBeWonException.class)
+	public void whenTryingToAddPointsAndThereIsAlreadyAWinnerThrowAnException() throws GameHasAlreadyBeWonException{
+		g.incrementPlayerScore(p2);
+		g.incrementPlayerScore(p2);
+		g.incrementPlayerScore(p2);
+		g.incrementPlayerScore(p2);
+		
+		g.incrementPlayerScore(p1);
+
 	}
 		
 }
