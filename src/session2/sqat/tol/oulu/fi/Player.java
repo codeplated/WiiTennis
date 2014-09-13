@@ -14,6 +14,7 @@ public class Player {
 		this.score = new Score();
 		this.name = name;
 	}
+	
 	public Score getScore() {
 		return this.score;
 	}
@@ -22,9 +23,7 @@ public class Player {
 	public String getName() {
 		return name;
 	}
-	public void setName(String name) {
-		this.name = name;
-	}
+
 	public void incrementScore() {
 		this.score.increment();
 	}

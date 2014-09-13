@@ -1,6 +1,5 @@
 package session2.sqat.tol.oulu.fi;
 
-
 public class Game {
 	private static final String ADVANTAGE = "Advantage";
 	private static final String DEUCE = "Deuce";
@@ -23,29 +22,28 @@ public class Game {
 			result.append(p1.getName()).append(SPACE).append(p1.getScore());
 			result.append(SPACE).append(DASH).append(SPACE);
 			result.append(p2.getName()).append(SPACE).append(p2.getScore());
-		}
-		else if (isDeuce()) result.append(DEUCE);
-		else if (advantagePlayer()!=null) result.append(ADVANTAGE).append(SPACE).append(advantagePlayer().getName());
+		} else if (isDeuce()) result.append(DEUCE);
+		else if (isThereAnAdvantagePlayer()) result.append(ADVANTAGE).append(SPACE).append(advantagePlayer().getName());
 		else if (isThereAWinner()) result.append(theWinner().getName()).append(SPACE).append(WINS);
-	
-		
 		this.gameStatus = result.toString();
 	}
 
-	private boolean isThereAWinner() {
-		return theWinner()!=null;
+	private boolean isThereAnAdvantagePlayer() {
+		return advantagePlayer() != null;
 	}
-	
+
+	private boolean isThereAWinner() {
+		return theWinner() != null;
+	}
+
 	private Player theWinner() {
 		Player theWinner = null;
 		if (p1.hasMoreThanFourtyPoints() && p1.hasTwoPointsAdvantageOn(p2)) theWinner = p1;
-		else if(p2.hasMoreThanFourtyPoints() && p2.hasTwoPointsAdvantageOn(p1)) theWinner = p2;
+		else if (p2.hasMoreThanFourtyPoints() && p2.hasTwoPointsAdvantageOn(p1)) theWinner = p2;
 		return theWinner;
 	}
 
-
-
-	public String getGameStatus(){
+	public String getGameStatus() {
 		return this.gameStatus;
 	}
 
@@ -53,33 +51,31 @@ public class Game {
 		return p1.hasLessThenFortyPoints() && p2.hasLessThenFortyPoints();
 	}
 
-
-
 	private Player advantagePlayer() {
 		Player result = null;
-		if (p2.hasAtLeastFortyPoints() && p1.hasAtLeastFortyPoints()){
-			if(p1.hasOnePointAdvantageOn(p2))  result = p1;
-			else if (p2.hasOnePointAdvantageOn(p1)) result = p2;
+		if (p2.hasAtLeastFortyPoints() && p1.hasAtLeastFortyPoints()) {
+			if (p1.hasOnePointAdvantageOn(p2))
+				result = p1;
+			else if (p2.hasOnePointAdvantageOn(p1))
+				result = p2;
 		}
 		return result;
 	}
-
-
 
 	private boolean isDeuce() {
 		return p1.isTieWith(p2) && p1.hasAtLeastFortyPoints();
 	}
 
-	
 	public void incrementPlayerScore(Player player) throws GameHasAlreadyBeWonException {
-		if(!isThereAWinner()) {
-		if (player.equals(p1)) {
-			p1.incrementScore();
-		} else if (player.equals(p2)) {
-			p2.incrementScore();
-		}
-		updateGameStatus();
-		} else throw new GameHasAlreadyBeWonException();
+		if (!isThereAWinner()) {
+			if (player.equals(p1)) {
+				p1.incrementScore();
+			} else if (player.equals(p2)) {
+				p2.incrementScore();
+			}
+			updateGameStatus();
+		} else
+			throw new GameHasAlreadyBeWonException();
 	}
 
 }
