@@ -3,6 +3,9 @@ package session2.sqat.tol.oulu.fi;
 
 public class Player {
 	
+	private static final Score FORTY = new Score(3);
+	private static final int ONE_POINT = 1;
+	private static final int TWO_POINTS = 2;
 	private String name;
 	private Score score; 
 	
@@ -25,6 +28,28 @@ public class Player {
 	public void incrementScore() {
 		this.score.increment();
 	}
+	
+	protected boolean isTieWith(Player opponent) {
+		return this.getScore().compareTo(opponent.getScore())==0;
+	}
+	protected boolean hasAtLeastFortyPoints() {
+		return this.getScore().compareTo(FORTY)>=0;
+	}
+	protected boolean hasOnePointAdvantageOn(Player opponent) {
+		return this.getScore().compareTo(opponent.getScore()) == ONE_POINT;
+	}
+	
+	protected boolean hasLessThenFortyPoints() {
+		return this.getScore().compareTo(FORTY)<0;
+	}
+	
+	protected boolean hasMoreThanFourtyPoints() {
+		return this.getScore().compareTo(FORTY)>0;
+	}
+	
+	protected boolean hasTwoPointsAdvantageOn(Player opponent) {
+		return this.getScore().compareTo(opponent.getScore()) >= TWO_POINTS;
+	}	
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -47,5 +72,6 @@ public class Player {
 		} else if (!name.equals(other.name))
 			return false;
 		return true;
-	}	
+	}
+
 }
