@@ -7,6 +7,7 @@ public class Game {
 	private static final Score FORTY = new Score(3);
 	private static final String SPACE = " ";
 	private static final String DASH = "-";
+	private static final String WINS = "wins";
 	private Player p1, p2;
 	private String gameStatus;
 
@@ -26,10 +27,16 @@ public class Game {
 		else if (isDeuce()) result.append(DEUCE);
 		else if (isAdvantage(p2, p1)) result.append(ADVANTAGE).append(SPACE).append(p2.getName());
 		else if (isAdvantage(p1, p2)) result.append(ADVANTAGE).append(SPACE).append(p1.getName());
-
+		else if (isWinner(p1)) result.append(p1.getName()).append(SPACE).append(WINS);
+		else if (isWinner(p2)) result.append(p2.getName()).append(SPACE).append(WINS);
 		this.gameStatus = result.toString();
 	}
 	
+	private boolean isWinner(Player player) {
+		if (player.getScore().compareTo(FORTY)>0) return true;
+		return false;
+	}
+
 	public String getGameStatus(){
 		return this.gameStatus;
 	}

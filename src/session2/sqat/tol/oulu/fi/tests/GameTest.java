@@ -92,5 +92,27 @@ public class GameTest {
 		//Assert
 		assertEquals("Advantage name1",g.getGameStatus());
 	}
+	
+	@Test 
+	public void firstPlayerHasAnEasyWin(){
+		g.incrementPlayerScore(p1);
+		g.incrementPlayerScore(p1);
+		g.incrementPlayerScore(p1);
+		g.incrementPlayerScore(p1);
+		
+		assertEquals("name1 wins", g.getGameStatus());
+		
+	}
+	
+	@Test 
+	public void secondPlayerHasAnEasyWin(){
+		g.incrementPlayerScore(p2);
+		g.incrementPlayerScore(p2);
+		g.incrementPlayerScore(p2);
+		g.incrementPlayerScore(p2);
+		
+		assertEquals("name2 wins", g.getGameStatus());
+		
+	}
 		
 }
